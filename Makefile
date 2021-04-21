@@ -88,14 +88,14 @@ FORCE:
 # Build a binary from a cmd.
 bin/%: cmd/% FORCE
 	@echo "$(WHALE) $@${BINARY_SUFFIX}"
-	@go build ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} ${GO_TAGS}  ./$<
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} ${GO_TAGS}  ./$<
 
 binaries: $(BINARIES) ## build binaries
 	@echo "$(WHALE) $@"
 
 build:
 	@echo "$(WHALE) $@"
-	@go build ${GO_GCFLAGS} ${GO_BUILD_FLAGS} ${GO_LDFLAGS} ${GO_TAGS} $(PACKAGES)
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ${GO_GCFLAGS} ${GO_BUILD_FLAGS} ${GO_LDFLAGS} ${GO_TAGS} $(PACKAGES)
 
 clean: ## clean up binaries
 	@echo "$(WHALE) $@"
